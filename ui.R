@@ -21,14 +21,20 @@ shinyUI(fluidPage(
 
         h3("How are earthquakes measured?"),
       
-        "Earthquakes are most commonly measured by their magnitude on the", 
+        p("Earthquakes are most commonly measured by their magnitude on the", 
         strong(a(href="https://en.wikipedia.org/wiki/Richter_magnitude_scale", "Richter Scale.")), 
         "The scale was developed by Charles Francis Richter and designed to measure the seismic waves
         produced from earthquakes. In the past, measurements were simply made using the amount of 'shaking'
         detected at the earthquake's epicenter. With the invention of seismographs, Richter could go beyond
-        measuring an earthquake's intensity and determine the amount of energy it released.",
+        measuring an earthquake's intensity and determine the amount of energy it released."),
         
-        "The Richter Scale relies on an exponential "
+        p("The Richter Scale is not like the metric or imperial measurement system, however. Instead of using
+        a simple raio scale, it uses an exponential one, measuring earthquakes by degrees of magnitude."),
+        
+        p(strong("What does that mean?")),
+        
+        p("Let's use an example. Let's say a magnitude-5 earthquake hits the Alaskan coast. Later on that 
+        day, a magnitude 6")
       )
     ),
     
