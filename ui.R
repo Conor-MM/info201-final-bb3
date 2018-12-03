@@ -21,7 +21,14 @@ shinyUI(fluidPage(
 
         h3("How are earthquakes measured?"),
       
-        "Earthquakes are measured by their magnitude on the", strong("Richter Scale.") 
+        "Earthquakes are most commonly measured by their magnitude on the", 
+        strong(a(href="https://en.wikipedia.org/wiki/Richter_magnitude_scale", "Richter Scale.")), 
+        "The scale was developed by Charles Francis Richter and designed to measure the seismic waves
+        produced from earthquakes. In the past, measurements were simply made using the amount of 'shaking'
+        detected at the earthquake's epicenter. With the invention of seismographs, Richter could go beyond
+        measuring an earthquake's intensity and determine the amount of energy it released.",
+        
+        "The Richter Scale relies on an exponential "
       )
     ),
     
@@ -29,6 +36,12 @@ shinyUI(fluidPage(
       mainPanel(
         ""
       )
+    ),
+    
+    tabPanel("Resources",
+             mainPanel(
+               ""
+             )
     )
   )
 )
