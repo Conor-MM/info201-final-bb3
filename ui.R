@@ -79,14 +79,13 @@ shinyUI(fluidPage(
         h3("Sources:"),
 
         p("All data used in the Explorer tab is courtesy of the",
-          a(href="United States Geological Survey api",
-          "https://earthquake.usgs.gov/fdsnws/event/1/#parameters"),
-          "and is openly available to the public. The API we used to access earthquake data did not require
-          an API key."),
+          a(href= "https://earthquake.usgs.gov/fdsnws/event/1/#parameters", "United States Geological Survey 
+          api"), "and is openly available to the public. The API we used to access earthquake data did not 
+          require an API key."),
 
         p("The USGS is dedivated to gathering useful information about the United States' landscape, natural
           resources, and natural hazards."),"For more information about the USGS and the work it does,",
-          a(href="click here.", "https://earthquake.usgs.gov/"))
+          a(href="https://earthquake.usgs.gov/", "click here."))
 
       )
     )
