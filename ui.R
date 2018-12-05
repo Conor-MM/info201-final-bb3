@@ -1,7 +1,6 @@
 library(shiny)
 library(dplyr)
 
-# Define UI for application that organizes UFO data from 2016
 shinyUI(fluidPage(
 
   titlePanel("USGS Earthquake Explorer"),
@@ -42,12 +41,13 @@ shinyUI(fluidPage(
 
     tabPanel("Explorer",
       mainPanel(
-        plotOutput("graph"),
-        radioButtons("date_options", "Choose Date Range", c("Past Week", "Past Month")),
-        uiOutput("date_range")
+        plotOutput("graph")
       ),
       sidebarPanel(
-        selectInput("states", "Select a State to display summary", c("Unspecified", state.name), "Unspecified"),
+        h2("Summary"),
+        selectInput("states", "Select a State", c("Unspecified", state.name), "Unspecified"),
+        radioButtons("date_options", "Choose Date Range", c("Past Week", "Past Month")),
+        uiOutput("date_range"),
         uiOutput("summary")
       )
     ),
