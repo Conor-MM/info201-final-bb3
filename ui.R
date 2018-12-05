@@ -33,56 +33,58 @@ shinyUI(fluidPage(
                
         p(strong("What does that mean?")),
                
-               p("Let's use an example. Let's say a magnitude-5 earthquake hits the Alaskan coast. Later on that
-                 day, a magnitude-6 strikes Japan. Japan's earthquake is actually", strong("10 times stronger"), 
-                 "than the one that hit Alaska. If another 7-magnitude quake hits Oregon, that earthquake will be",
-                 strong("100 times stronger"), "than the one that hit Alaska."),
+        p("Let's use an example. Let's say a magnitude-5 earthquake hits the Alaskan coast. Later on that
+          day, a magnitude-6 strikes Japan. Japan's earthquake is actually", strong("10 times stronger"), 
+          "than the one that hit Alaska. If another 7-magnitude quake hits Oregon, that earthquake will be",
+          strong("100 times stronger"), "than the one that hit Alaska."),
                
-               p("This is why you can barely feel a magnitude-2, but can be buried under a building by a
-                 magnitude-8."),
+        p("This is why you can barely feel a magnitude-2, but can be buried under a building by a
+          magnitude-8."),
                
-               h3("Helpful visuals:"),
+        h3("Helpful visuals:"),
                
-               img(src='earthquake_mag.png', width=700),
+        img(src='earthquake_mag.png', width=800),
                
-               img(src='earthquake_destr.png', width=700),
+        img(src='earthquake_destr.png', width=800),
                
-               h3("To view recent earthquakes in the continental United States, click the 'Explorer' tab!")
-               )
-               ),
+        h3("To view recent earthquakes in the continental United States, click the 'Explorer' tab!")
+      )
+    ),
     
     ## This is where the app's interactive components are, including a state selection tool and date
     ## selection tool and slider
     tabPanel("Explorer",
-             mainPanel(
-               plotOutput("graph")
-             ),
-             sidebarPanel(
-               h2("Summary"),
-               selectInput("states", "Select a State", c("Unspecified", state.name), "Unspecified"),
-               radioButtons("date_options", "Choose Date Range", c("Past Week", "Past Month")),
-               uiOutput("date_range"),
-               uiOutput("summary")
-             )
+      mainPanel(
+        plotOutput("graph")
+      ),
+      sidebarPanel(
+      h2("Summary"),
+        selectInput("states", "Select a State", c("Unspecified", state.name), "Unspecified"),
+        radioButtons("date_options", "Choose Date Range", c("Past Week", "Past Month")),
+        uiOutput("date_range"),
+        uiOutput("summary")
+      )
     ),
     
     ## This is where we give credit to our sources
     tabPanel("Resources",
-             mainPanel(
+      mainPanel(
                
-               h3("Sources:"),
+        h3("Sources:"),
                
-               p("All data used in the Explorer tab is courtesy of the", 
-                 a(href="United States Geological Survey", "https://earthquake.usgs.gov/fdsnws/event/1/#parameters"),
-                 "and is openly available to the public. Their website provides useful information about the United
+        p("All data used in the Explorer tab is courtesy of the", 
+          a(href="United States Geological Survey", "https://earthquake.usgs.gov/fdsnws/event/1/#parameters"),
+          "and is openly available to the public. Their website provides useful information about the United
           States' landscape, natural resources, and natural hazards."),
+        
+        p("For more information about the USGS and the work it does, click here."),
                
-               h3("Tools:"),
+        h3("Tools:"),
                
-               p("This app was made in RStudio utilizing the Shiny, HTTR, lubridate, dplyr, jsonlite, ggplot2,
+        p("This app was made in RStudio utilizing the Shiny, HTTR, lubridate, dplyr, jsonlite, ggplot2,
           stringr, readr, and maps packages.")
                
-             )
+      )
     )
     )
   )
