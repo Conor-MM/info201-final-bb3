@@ -7,8 +7,8 @@ shinyUI(fluidPage(
 
   tabsetPanel(
 
+## This tab gives the viewer information about earthquakes to help them better understand the 'Explorer' tab
     tabPanel("Home",
-
       mainPanel(
 
         h3("What is an earthquake?"),
@@ -37,9 +37,14 @@ shinyUI(fluidPage(
         "than the one that hit Alaska. If another 7-magnitude quake hits Oregon, that earthquake will be",
         strong("100 times stronger"), "than the one that hit Alaska."),
         
-        h3("Charts for visualizing earthquake damage:"),
+        p("This is why you can barely feel a magnitude-2, but can be buried under a building by a
+        magnitude-8."),
         
-        img(src='earthquake_mag.png', width=700)
+        h3("Helpful visuals:"),
+        
+        img(src='earthquake_mag.png', width=700),
+        
+        h3("To view recent earthquakes in the continental United States, click the 'Explorer' tab!")
       )
     ),
 
