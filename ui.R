@@ -34,7 +34,9 @@ shinyUI(fluidPage(
         p(strong("What does that mean?")),
 
         p("Let's use an example. Let's say a magnitude-5 earthquake hits the Alaskan coast. Later on that
-        day, a magnitude 6")
+        day, a magnitude-6 strikes Japan. Japan's earthquake is actually", strong("10 times stronger"), 
+        "than the one that hit Alaska. If another 7-magnitude quake hits Oregon, that earthquake will be",
+        strong("100 times stronger"), "than the one that hit Alaska.")
       )
     ),
 
