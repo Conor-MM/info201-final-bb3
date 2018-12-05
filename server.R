@@ -45,15 +45,19 @@ server <- function(input, output) {
 
     usgs_data <- content(usgs_res, "parsed")[, c(1,2,3,5,14)]
     if(input$states == "Unspecified"){
-      us_states <- c(state.name, state.abb)
       geo_data <- map_data("state")
+      us_states <- c(state.name, state.abb)
       filtered_data <- usgs_data %>%
         filter(str_detect(paste(us_states, collapse="|"), (word(place, -1)))) %>%
         filter(longitude > -124 & longitude < -67 & latitude > 25 & latitude < 50)
       values$region <- "United States(Excluding Alaska and Hawaii)"
     } else{
     selected_state <- c(input$states, state.abb[match(input$states, state.name)])
-    geo_data <- filter(map_data("state"), region == tolower(input$states))
+    if(input$states != "Alaska" & input$states != "Hawaii"){
+      geo_data <- filter(map_data("state"), region == tolower(input$states))
+    } else{
+      geo_data <- filter(map_data("world"), subregion == input$states & long < 0)
+    }
     filtered_data <- usgs_data %>%
       filter(str_detect(paste(selected_state, collapse="|"), (word(place, -1))))
       values$region <- input$states
