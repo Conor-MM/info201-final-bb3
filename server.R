@@ -59,7 +59,7 @@ server <- function(input, output) {
       geo_data <- filter(map_data("world"), subregion == input$states & long < 0)
     }
     filtered_data <- usgs_data %>%
-      filter(str_detect(paste(selected_state, collapse="|"), (word(place, -1))))
+      filter(str_detect(paste(selected_state, collapse="|"), (word(place, -1))) & longitude < 0)
       values$region <- input$states
     }
 
@@ -68,8 +68,9 @@ server <- function(input, output) {
     values$max <- max(filtered_data$mag, na.rm=TRUE)
     values$empty <- dim(filtered_data)[1] == 0
 
-    usgs_map <- ggplot() + geom_polygon(data=geo_data, aes(x=long, y=lat, group = group),colour="black", fill="white") +
-    geom_point(filtered_data, mapping = aes(longitude, latitude), color = "red", size = filtered_data$mag) + coord_quickmap()
+    usgs_map <- ggplot() + geom_polygon(data=geo_data, aes(x=long, y=lat, group=group), colour="black", fill="white") +
+    geom_point(filtered_data, mapping = aes(longitude, latitude, color = filtered_data$mag), size = filtered_data$mag) +
+    scale_color_gradient("Magnitude", low="yellow", high="red", limits = c(0, 10)) + coord_quickmap()
     return(usgs_map)
   })
 }
