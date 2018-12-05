@@ -69,7 +69,7 @@ server <- function(input, output) {
         geo_data <- filter(map_data("world"), subregion == input$states & long < 0)
       }
       filtered_data <- usgs_data %>%
-        filter(str_detect(paste(selected_state, collapse="|"), (word(place, -1))) & longitude < 0)
+        filter(str_detect(paste0("|", selected_state, collapse="|"), paste0("\\|", (word(place, -1)))) & longitude < 0) 
         values$region <- input$states
     }
 
