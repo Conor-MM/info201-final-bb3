@@ -32,9 +32,9 @@ server <- function(input, output) {
     input$date_range[1], input$date_range[2], values$count, values$region
     )
     if(!values$empty){
-      result <- paste(result, sprintf("Averaging %s per day over %s days. The average magnitude is %s and the highest is %s.",
+      result <- paste(result, sprintf("Averaging %s per day over %s days. The average magnitude is %s and the highest is %s, spotted near %s.",
       round(values$count/as.numeric((input$date_range[2] - input$date_range[1]), units = "days"), 2),
-      (input$date_range[2] - input$date_range[1]), values$mean, values$max))
+      (input$date_range[2] - input$date_range[1]), values$mean, values$max, values$place))
     }
     return(result)
   })
@@ -59,7 +59,12 @@ server <- function(input, output) {
     } else{
       selected_state <- c(input$states, state.abb[match(input$states, state.name)])
       if(input$states != "Alaska" & input$states != "Hawaii"){
-        geo_data <- filter(map_data("state"), region == tolower(input$states))
+        if(input$show_county){
+          map_level <- "county"
+        } else{
+          map_level <- "state"
+        }
+        geo_data <- filter(map_data(map_level), region == tolower(input$states))
       } else{
         geo_data <- filter(map_data("world"), subregion == input$states & long < 0)
       }
@@ -72,6 +77,7 @@ server <- function(input, output) {
     values$mean <- round(mean(filtered_data$mag, na.rm=TRUE), 2)
     values$max <- max(filtered_data$mag, na.rm=TRUE)
     values$empty <- dim(filtered_data)[1] == 0
+    values$place <- filter(filtered_data, mag == values$max)$place
 
     usgs_map <- ggplot() + geom_polygon(data=geo_data, aes(x=long, y=lat, group=group), colour="black", fill="white") +
     geom_point(filtered_data, mapping = aes(longitude, latitude, color = filtered_data$mag), size = filtered_data$mag) +
