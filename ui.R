@@ -1,7 +1,8 @@
 library(shiny)
 library(dplyr)
+library(shinythemes)
 
-shinyUI(fluidPage(
+shinyUI(fluidPage(theme = shinytheme("flatly"),
 
   titlePanel("USGS Earthquake Explorer"),
 
@@ -74,7 +75,7 @@ shinyUI(fluidPage(
         h3("Tools:"),
 
         p("This app was made in RStudio utilizing the Shiny, HTTR, lubridate, dplyr, jsonlite, ggplot2,
-          stringr, readr, and maps packages."),
+          stringr, readr, shinytheme, and maps packages."),
 
         h3("Sources:"),
 
@@ -83,7 +84,7 @@ shinyUI(fluidPage(
           api"), "and is openly available to the public. The API we used to access earthquake data did not 
           require an API key."),
 
-        p("The USGS is dedivated to gathering useful information about the United States' landscape, natural
+        p("The USGS is dedicated to gathering useful information about the United States' landscape, natural
           resources, and natural hazards."),"For more information about the USGS and the work it does,",
           a(href="https://earthquake.usgs.gov/", "click here."))
 
