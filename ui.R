@@ -43,6 +43,10 @@ shinyUI(fluidPage(
         plotOutput("graph"),
         radioButtons("date_options", "Choose Date Range", c("Past Week", "Past Month")),
         uiOutput("date_range")
+      ),
+      sidebarPanel(
+        selectInput("states", "Select a State to display summary", c("Unspecified", state.name), "Unspecified"),
+        uiOutput("summary")
       )
     ),
 
