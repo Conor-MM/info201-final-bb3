@@ -69,23 +69,25 @@ shinyUI(fluidPage(
     ## This is where we give credit to our sources
     tabPanel("Resources",
       mainPanel(
-               
+        
+        h3("Tools:"),
+        
+        p("This app was made in RStudio utilizing the Shiny, HTTR, lubridate, dplyr, jsonlite, ggplot2,
+          stringr, readr, and maps packages."),
+        
         h3("Sources:"),
                
         p("All data used in the Explorer tab is courtesy of the", 
-          a(href="United States Geological Survey", "https://earthquake.usgs.gov/fdsnws/event/1/#parameters"),
-          "and is openly available to the public. Their website provides useful information about the United
-          States' landscape, natural resources, and natural hazards."),
+          a(href="United States Geological Survey api", 
+          "https://earthquake.usgs.gov/fdsnws/event/1/#parameters"),
+          "and is openly available to the public. The API we used to access earthquake data did not require 
+          an API key."),
         
-        p("For more information about the USGS and the work it does, click here."),
-               
-        h3("Tools:"),
-               
-        p("This app was made in RStudio utilizing the Shiny, HTTR, lubridate, dplyr, jsonlite, ggplot2,
-          stringr, readr, and maps packages.")
+        p("The USGS is dedivated to gathering useful information about the United States' landscape, natural 
+          resources, and natural hazards."),"For more information about the USGS and the work it does,", 
+          a(href="click here.", "https://earthquake.usgs.gov/"))
                
       )
-    )
     )
   )
 )
