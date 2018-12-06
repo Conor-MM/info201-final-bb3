@@ -11,6 +11,7 @@ library(maps)
 server <- function(input, output) {
 
   values <- reactiveValues()
+  ranges <- reactiveValues()
 
 ## This widget lets the user choose a specific time range to display the data from
   output$date_range <- renderUI({
@@ -82,8 +83,11 @@ server <- function(input, output) {
 
     usgs_map <- ggplot() + geom_polygon(data=geo_data, aes(x=long, y=lat, group=group), colour="black", fill="white") +
     geom_point(filtered_data, mapping = aes(longitude, latitude, color = filtered_data$mag), size = filtered_data$mag) +
-    labs(x = "Longitude", y = "Latitude", title = "Earthquake Map") +
-    scale_color_gradient("Magnitude", low="yellow", high="red", limits = c(0, 10)) + coord_quickmap()
+    labs(x = "Longitude", y = "Latitude", title = "Earthquake Map",
+    subtitle = "Click and drag around an area on the map, then double click to zoom in. Double click again to zoom out") +
+    scale_color_gradient("Magnitude", low="yellow", high="red", limits = c(0, 10)) + coord_quickmap() +
+    coord_fixed(xlim = ranges$x, ylim = ranges$y, expand = FALSE) + theme(plot.title = element_text(size = 15, face = "bold"),
+    plot.subtitle = element_text(size = 15))
     return(usgs_map)
   })
 
@@ -102,6 +106,7 @@ server <- function(input, output) {
     }
     chart <- ggplot(state_data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) +
     labs(x = "Date", y = "Total Number", title = "Total Number of Quakes Over Time") +
+    theme(plot.title = element_text(size = 15, face = "bold")) + 
     geom_line(size = 2)
     return(chart)
   })
@@ -120,11 +125,23 @@ server <- function(input, output) {
         state_data$Index <- seq.int(nrow(values$data))
       }
       chart <- ggplot(state_data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=mag, color = round(mag, digits = 0))) +
-        labs(x = "Date", y = "Quake Magnitude", title = "Quakes Over Time Graphed by Magnitude")
+        labs(x = "Date", y = "Quake Magnitude", title = "Quakes Over Time Graphed by Magnitude") +
+        theme(plot.title = element_text(size = 15, face = "bold"))
         if(!values$empty){
         chart <- chart + geom_point(size = 2) +
         scale_color_gradient("Magnitude", low="orange", high="magenta3", limits = c(0, 10))
         }
         return(chart)
+  })
+  observeEvent(input$plot1_dblclick, {
+    brush <- input$plot1_brush
+    if (!is.null(brush)) {
+      ranges$x <- c(brush$xmin, brush$xmax)
+      ranges$y <- c(brush$ymin, brush$ymax)
+
+    } else {
+      ranges$x <- NULL
+      ranges$y <- NULL
+    }
   })
 }
