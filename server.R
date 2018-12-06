@@ -101,7 +101,7 @@ server <- function(input, output) {
       state_data$Index <- seq.int(nrow(values$data))
     }
     chart <- ggplot(state_data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) +
-    labs(x = "Date", y = "Total Count", title = "Total Count of Quakes Over Time") +
+    labs(x = "Date", y = "Total Number", title = "Total Number of Quakes Over Time") +
     geom_line(size = 2)
     return(chart)
   })
