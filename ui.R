@@ -48,7 +48,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
 
         img(src='earthquake_destr.png', width=800),
 
-        h3("To view recent earthquakes in the continental United States, click the 'Explorer' tab!")
+        h3("To view recent earthquakes in the United States, click the 'Explorer' tab!")
       )
     ),
 
@@ -57,7 +57,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     tabPanel("Explorer",
       mainPanel(
         plotOutput("graph_m"),
-        plotOutput("graph_l")
+        plotOutput("graph_l"),
+        plotOutput("graph_b")
       ),
       sidebarPanel(
       h2("Summary"),

@@ -87,12 +87,30 @@ server <- function(input, output) {
   })
 
   output$graph_l <- renderPlot({
-    shiny::validate(
-       need(input$date_range, "Just one sec...")
-     )
-    values$data$Index <- seq.int(nrow(values$data))
-    chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number") +
-    stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
-    return(chart)
+    if(values$count != 0){
+      shiny::validate(
+         need(input$date_range, "Just one sec...")
+       )
+      values$data$Index <- seq.int(nrow(values$data))
+      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number of Quakes") +
+      stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
+      return(chart)
+    } else {
+      return(paste0("Graph cannot be made"))
+    }
+  })
+  
+  output$graph_b <- renderPlot({
+    if(values$count != 0){
+      shiny::validate(
+        need(input$date_range, "Just one sec...")
+      )
+      values$data$Index <- seq.int(nrow(values$data))
+      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number of Quakes") +
+        stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
+      return(chart)
+    } else {
+      return(paste0("Graph cannot be made"))
+    }
   })
 }
