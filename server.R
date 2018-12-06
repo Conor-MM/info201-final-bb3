@@ -109,7 +109,7 @@ server <- function(input, output) {
       )
       values$data$Index <- seq.int(nrow(values$data))
       chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=mag, color = round(mag, digits = 0))) + 
-        labs(x = "Date", y = "Quake Magnitude", title = "Quakes Graphed by Magnitude") + 
+        labs(x = "Date", y = "Quake Magnitude", title = "Quakes Over Time Graphed by Magnitude") + 
         geom_point(
         )+
         scale_color_gradient("Magnitude", low="orange", high="magenta3", limits = c(0, 10))
