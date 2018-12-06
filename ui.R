@@ -11,6 +11,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     ## This tab gives the viewer information about earthquakes to help them better understand the
     ## 'Explorer' tab, which houses the interactive components
     tabPanel("Home",
+    style = "position:fixed;width:inherit;",
       mainPanel(
 
         h3("What is an earthquake?"),
@@ -57,10 +58,10 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     tabPanel("Explorer",
       mainPanel(
         plotOutput("graph_m"),
-        plotOutput("graph_l"),
-        plotOutput("graph_b")
+        splitLayout(plotOutput("graph_l"), plotOutput("graph_b"))
       ),
       sidebarPanel(
+      style = "position:fixed;width:inherit;",
       h2("Summary"),
         selectInput("states", "Select a State", c("Unspecified", state.name), "Unspecified"),
         checkboxInput("show_county", "Show Counties", TRUE),
