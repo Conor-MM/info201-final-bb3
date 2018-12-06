@@ -11,7 +11,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     ## This tab gives the viewer information about earthquakes to help them better understand the
     ## 'Explorer' tab, which houses the interactive components
     tabPanel("Home",
-    style = "position:fixed;width:inherit;",
+    
       mainPanel(
 
         h3("What is an earthquake?"),
