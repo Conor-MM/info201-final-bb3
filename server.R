@@ -87,27 +87,31 @@ server <- function(input, output) {
   })
 
   output$graph_l <- renderPlot({
-    if(values$count != 0){
-      shiny::validate(
-         need(input$date_range, "Just one sec...")
-       )
-      values$data$Index <- seq.int(nrow(values$data))
-      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number of Quakes") +
-      stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
-      return(chart)
-    } else {
-      return(paste0("Graph cannot be made"))
+    shiny::validate(
+      need(input$date_range, "Just one sec...")
+    )
+    state_data <- values$data
+    if(values$empty){
+      state_data[c(1:2),c(2:5)] <- c(0,0,0,0)
+      state_data[1,1] <- Sys.time()
+      state_data[2,1] <- Sys.time() - (input$date_range[2] - input$date_range[1])
+      state_data$Index <- 0
+    } else{
+      state_data$Index <- seq.int(nrow(values$data))
     }
+    chart <- ggplot(state_data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number of Quakes") +
+    geom_line(size = 2)
+    return(chart)
   })
-  
+
   output$graph_b <- renderPlot({
     if(values$count != 0){
       shiny::validate(
         need(input$date_range, "Just one sec...")
       )
       values$data$Index <- seq.int(nrow(values$data))
-      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=mag, color = round(mag, digits = 0))) + 
-        labs(x = "Date", y = "Quake Magnitude") + 
+      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=mag, color = round(mag, digits = 0))) +
+        labs(x = "Date", y = "Quake Magnitude") +
         geom_point(
         )+
         scale_color_gradient("Magnitude", low="orange", high="magenta3", limits = c(0, 10))
