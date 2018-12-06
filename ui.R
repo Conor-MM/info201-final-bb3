@@ -56,7 +56,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     ## selection tool and slider
     tabPanel("Explorer",
       mainPanel(
-        plotOutput("graph")
+        plotOutput("graph_m"),
+        plotOutput("graph_l")
       ),
       sidebarPanel(
       h2("Summary"),
@@ -80,8 +81,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
         h3("Sources:"),
 
         p("All data used in the Explorer tab is courtesy of the",
-          a(href= "https://earthquake.usgs.gov/fdsnws/event/1/#parameters", "United States Geological Survey 
-          api"), "and is openly available to the public. The API we used to access earthquake data did not 
+          a(href= "https://earthquake.usgs.gov/fdsnws/event/1/#parameters", "United States Geological Survey
+          api"), "and is openly available to the public. The API we used to access earthquake data did not
           require an API key."),
 
         p("The USGS is dedicated to gathering useful information about the United States' landscape, natural

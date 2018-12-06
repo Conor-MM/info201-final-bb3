@@ -40,7 +40,7 @@ server <- function(input, output) {
   })
 
 ## This is where most of the data processing is and the graph is made here
-  output$graph <- renderPlot({
+  output$graph_m <- renderPlot({
     shiny::validate(
        need(input$date_range, "Just one sec...")
      )
@@ -69,7 +69,7 @@ server <- function(input, output) {
         geo_data <- filter(map_data("world"), subregion == input$states & long < 0)
       }
       filtered_data <- usgs_data %>%
-        filter(str_detect(paste0("|", selected_state, collapse="|"), paste0("\\|", (word(place, -1)))) & longitude < 0) 
+        filter(str_detect(paste0("|", selected_state, collapse="|"), paste0("\\|", (word(place, -1)))) & longitude < 0)
         values$region <- input$states
     }
 
@@ -78,10 +78,21 @@ server <- function(input, output) {
     values$max <- max(filtered_data$mag, na.rm=TRUE)
     values$empty <- dim(filtered_data)[1] == 0
     values$place <- filter(filtered_data, mag == values$max)$place
+    values$data <- filtered_data[order(as.POSIXct(filtered_data$time, "%Y-%m-%d %H:%M:%S")),]
 
     usgs_map <- ggplot() + geom_polygon(data=geo_data, aes(x=long, y=lat, group=group), colour="black", fill="white") +
     geom_point(filtered_data, mapping = aes(longitude, latitude, color = filtered_data$mag), size = filtered_data$mag) +
     scale_color_gradient("Magnitude", low="yellow", high="red", limits = c(0, 10)) + coord_quickmap()
     return(usgs_map)
+  })
+
+  output$graph_l <- renderPlot({
+    shiny::validate(
+       need(input$date_range, "Just one sec...")
+     )
+    values$data$Index <- seq.int(nrow(values$data))
+    chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number") +
+    stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
+    return(chart)
   })
 }
