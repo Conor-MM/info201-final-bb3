@@ -57,8 +57,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     tabPanel("Explorer",
       mainPanel(
         plotOutput("graph_m"),
-        plotOutput("graph_l"),
-        plotOutput("graph_b")
+        splitLayout(plotOutput("graph_l"), plotOutput("graph_b"))
       ),
       sidebarPanel(
       h2("Summary"),
