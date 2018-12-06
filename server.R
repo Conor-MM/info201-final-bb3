@@ -106,8 +106,9 @@ server <- function(input, output) {
         need(input$date_range, "Just one sec...")
       )
       values$data$Index <- seq.int(nrow(values$data))
-      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=Index)) + xlab("Date") + ylab("Number of Quakes") +
-        stat_smooth(method = "gam", formula = y ~ s(x, bs = "cs"))
+      chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=mag)) + xlab("Date") + ylab("Quake Magnitudes") +
+        geom_point(
+        )
       return(chart)
     } else {
       return(paste0("Graph cannot be made"))
