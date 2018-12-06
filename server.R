@@ -82,6 +82,7 @@ server <- function(input, output) {
 
     usgs_map <- ggplot() + geom_polygon(data=geo_data, aes(x=long, y=lat, group=group), colour="black", fill="white") +
     geom_point(filtered_data, mapping = aes(longitude, latitude, color = filtered_data$mag), size = filtered_data$mag) +
+    labs(x = "Longitude", y = "Latitude", title = "Earthquake Map") +
     scale_color_gradient("Magnitude", low="yellow", high="red", limits = c(0, 10)) + coord_quickmap()
     return(usgs_map)
   })
@@ -111,7 +112,7 @@ server <- function(input, output) {
       )
       values$data$Index <- seq.int(nrow(values$data))
       chart <- ggplot(values$data, aes(x=as.POSIXct(time, "%Y-%m-%d %H:%M:%S"), y=mag, color = round(mag, digits = 0))) +
-        labs(x = "Date", y = "Quake Magnitude") +
+        labs(x = "Date", y = "Quake Magnitude", title = "Quakes Over Time Graphed by Magnitude") +
         geom_point(
         )+
         scale_color_gradient("Magnitude", low="orange", high="magenta3", limits = c(0, 10))
